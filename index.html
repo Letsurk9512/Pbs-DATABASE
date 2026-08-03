@@ -1,343 +1,449 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Pbs-ids reportados - LaZoeXD</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 0;
-      background-color: #f4f4f9;
-      color: #333;
-      transition: background-color 0.3s, color 0.3s;
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    body.dark-mode {
-      background-color: #121212;
-      color: #f4f4f9;
-    }
+<title>Pbs-ids reportados - LaZoeXD</title>
 
-    .container {
-      max-width: 600px;
-      margin: 50px auto;
-      padding: 20px;
-      background: #ffffff;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-      border-radius: 8px;
-      transition: background 0.3s, box-shadow 0.3s;
-    }
+<style>
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color:#f4f4f9;
+  color:#333;
+}
 
-    .container.dark-mode {
-      background: #1e1e1e;
-      box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1);
-    }
+body.dark-mode {
+  background:#121212;
+  color:#f4f4f4;
+}
 
-    h1 {
-      text-align: center;
-      color: #333;
-    }
+.container {
+  max-width:600px;
+  margin:50px auto;
+  padding:20px;
+  background:white;
+  border-radius:8px;
+}
 
-    .instructions {
-      font-size: 14px;
-      margin-top: 20px;
-      color: #555;
-      text-align: center;
-    }
+.container.dark-mode {
+  background:#1e1e1e;
+}
 
-    .section {
-      margin-bottom: 30px;
-    }
+h1 {
+ text-align:center;
+}
 
-    .search-box, .add-box {
-      display: flex;
-      justify-content: center;
-      margin: 20px 0;
-    }
+input {
+ width:100%;
+ padding:10px;
+ font-size:16px;
+}
 
-    .search-box input, .add-box input {
-      width: 100%;
-      padding: 10px;
-      font-size: 16px;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-      transition: background-color 0.3s, color 0.3s;
-    }
+button {
+ padding:10px 20px;
+ margin:5px;
+ cursor:pointer;
+ border:none;
+ border-radius:5px;
+ background:#007BFF;
+ color:white;
+}
 
-    .search-box input.dark-mode, .add-box input.dark-mode {
-      background-color: #333;
-      color: #f4f4f9;
-      border: 1px solid #666;
-    }
+button:hover {
+ background:#0056b3;
+}
 
-    .search-box button, .add-box button {
-      padding: 10px 20px;
-      background: #007BFF;
-      color: #fff;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-      font-size: 16px;
-      margin-left: 10px;
-    }
+.results li {
+ list-style:none;
+ padding:10px;
+ border-bottom:1px solid #ddd;
+ display:flex;
+ justify-content:space-between;
+}
 
-    .search-box button:hover, .add-box button:hover {
-      background: #0056b3;
-    }
+.edit {
+ background:#ffc107;
+ color:black;
+}
 
-    .results ul {
-      list-style: none;
-      padding: 0;
-    }
+.delete {
+ background:#dc3545;
+}
 
-    .results li {
-      padding: 10px;
-      border-bottom: 1px solid #ddd;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      transition: background-color 0.3s;
-    }
+.message {
+ text-align:center;
+ margin-top:10px;
+}
 
-    .results li.dark-mode {
-      background-color: #333;
-      color: #f4f4f9;
-    }
+.dark-mode li {
+ border-color:#555;
+}
 
-    .results li:last-child {
-      border-bottom: none;
-    }
+</style>
 
-    .results button {
-      margin-left: 10px;
-      padding: 5px 10px;
-      font-size: 14px;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-    }
-
-    .edit {
-      background: #ffc107;
-      color: #000;
-    }
-
-    .edit:hover {
-      background: #e0a800;
-    }
-
-    .delete {
-      background: #dc3545;
-      color: #fff;
-    }
-
-    .delete:hover {
-      background: #c82333;
-    }
-
-    .message {
-      text-align: center;
-      font-size: 14px;
-      color: green;
-      margin-top: 10px;
-    }
-
-    .mode-toggle {
-      display: flex;
-      justify-content: center;
-      margin-top: 20px;
-    }
-
-    .mode-toggle button {
-      padding: 10px 20px;
-      background: #28a745;
-      color: #fff;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-      font-size: 16px;
-    }
-
-    .mode-toggle button:hover {
-      background: #218838;
-    }
-
-    /* Resaltado en modo oscuro */
-    body.dark-mode h1,
-    body.dark-mode .section h2,
-    body.dark-mode .instructions {
-      color: #ffcc00; /* Color amarillo brillante para resaltar el texto */
-    }
-
-    .results li.dark-mode {
-      background-color: #333;
-      border: 1px solid #555;
-    }
-
-  </style>
 </head>
+
+
 <body>
-  <div class="container">
-    <h1>Pbs-ids reportados - LaZoeXD</h1>
 
-    <!-- Instrucciones -->
-    <div class="instructions">
-      <p>Para registrar una pb reportada poner: pb-id - N° de reporte, ej: pb-IF4PVUkuCQ== - 1/10 Reportes.</p>
-      <p>Para editar lo registrado, pulsar editar, ya sea para agregar número de reporte "2/10".</p>
-      <p>Si deseas eliminar la pb-id, solo presiona eliminar y aceptar.</p>
-    </div>
+<div class="container">
 
-    <!-- Sección de búsqueda -->
-    <div class="section">
-      <h2>Buscar PBS-IDS</h2>
-      <div class="search-box">
-        <input type="text" id="searchInput" placeholder="Escribe algo para buscar...">
-        <button onclick="buscar()">Buscar</button>
-      </div>
-      <div class="results" id="results"></div>
-    </div>
+<h1>Pbs-ids reportados - LaZoeXD</h1>
 
-    <!-- Sección de registro -->
-    <div class="section">
-      <h2>Registrar Nueva PBS-IDS</h2>
-      <div class="add-box">
-        <input type="text" id="addInput" placeholder="Escribe una nueva PBS-IDS...">
-        <button onclick="registrar()">Registrar</button>
-      </div>
-      <div class="message" id="message"></div>
-    </div>
 
-    <!-- Botón de cambio de modo -->
-    <div class="mode-toggle">
-      <button onclick="toggleMode()">Modo Oscuro/Luminoso</button>
-    </div>
-  </div>
+<p>
+Para registrar una PB-ID escribe:
+<br>
+pb-id - N° de reporte
+<br>
+Ejemplo:
+<br>
+pb-IF4PVUkuCQ== - 1/10 Reportes
+</p>
 
-  <script>
-    // Inicializar datos desde localStorage
-    let data = JSON.parse(localStorage.getItem("pbsData")) || [
-      "pb-IF4PVUkuCQ== - 1/10 Reportes",
-      "pb-Nx4Gx0pmqH== - 2/10 Reportes",
-      "pb-7y9aHfGVG2== - 5/10 Reportes"
-    ];
 
-    // Cambiar entre modo oscuro y luminoso
-    function toggleMode() {
-      document.body.classList.toggle('dark-mode');
-      document.querySelector('.container').classList.toggle('dark-mode');
+<h2>Buscar PBS-IDS</h2>
 
-      // Cambiar los inputs a modo oscuro si está activado
-      const inputs = document.querySelectorAll('.search-box input, .add-box input');
-      inputs.forEach(input => input.classList.toggle('dark-mode'));
+<input id="searchInput" placeholder="Buscar...">
 
-      // Cambiar el fondo de los elementos de la lista en modo oscuro
-      const resultsItems = document.querySelectorAll('.results li');
-      resultsItems.forEach(item => item.classList.toggle('dark-mode'));
+<button onclick="buscar()">
+Buscar
+</button>
 
-      // Guardar preferencia en localStorage
-      if (document.body.classList.contains('dark-mode')) {
-        localStorage.setItem('mode', 'dark');
-      } else {
-        localStorage.setItem('mode', 'light');
-      }
-    }
 
-    // Aplicar el modo preferido desde localStorage
-    if (localStorage.getItem('mode') === 'dark') {
-      document.body.classList.add('dark-mode');
-      document.querySelector('.container').classList.add('dark-mode');
+<div id="results"></div>
 
-      const inputs = document.querySelectorAll('.search-box input, .add-box input');
-      inputs.forEach(input => input.classList.add('dark-mode'));
 
-      const resultsItems = document.querySelectorAll('.results li');
-      resultsItems.forEach(item => item.classList.add('dark-mode'));
-    }
 
-    // Guardar en localStorage
-    function guardarEnLocalStorage() {
-      localStorage.setItem("pbsData", JSON.stringify(data));
-    }
+<h2>Registrar nueva PBS-IDS</h2>
 
-    // Función para buscar PBS-IDS
-    function buscar() {
-      const input = document.getElementById("searchInput").value.toLowerCase();
-      const resultsContainer = document.getElementById("results");
-      const filteredData = data.filter(item => item.toLowerCase().includes(input));
-      
-      if (filteredData.length === 0) {
-        resultsContainer.innerHTML = "<p>No se encontraron resultados.</p>";
-        return;
-      }
-      
-      const resultsHTML = filteredData
-        .map((item, index) => `
-          <li>
-            ${item}
-            <button class="edit" onclick="editar(${index})">Editar</button>
-            <button class="delete" onclick="eliminar(${index})">Eliminar</button>
-          </li>
-        `)
-        .join("");
-      resultsContainer.innerHTML = `<ul>${resultsHTML}</ul>`;
-    }
+<input id="addInput" placeholder="Nueva PBS-ID">
 
-    // Función para registrar una nueva PBS-IDS
-    function registrar() {
-      const input = document.getElementById("addInput").value.trim();
-      const messageContainer = document.getElementById("message");
 
-      if (input === "") {
-        messageContainer.textContent = "Por favor, escribe algo antes de registrar.";
-        messageContainer.style.color = "red";
-        return;
-      }
+<button onclick="registrar()">
+Registrar
+</button>
 
-      // Verificar si ya existe
-      if (data.includes(input)) {
-        messageContainer.textContent = "La PBS-IDS ya está registrada.";
-        messageContainer.style.color = "orange";
-        return;
-      }
 
-      // Agregar al array
-      data.push(input);
-      guardarEnLocalStorage();
+<div id="message" class="message"></div>
 
-      // Mostrar mensaje de éxito
-      messageContainer.textContent = "PBS-IDS registrada con éxito.";
-      messageContainer.style.color = "green";
 
-      // Limpiar el campo de entrada
-      document.getElementById("addInput").value = "";
+<br>
 
-      buscar();
-    }
+<button onclick="toggleMode()">
+Modo Oscuro/Luminoso
+</button>
 
-    // Función para editar una PBS-IDS
-    function editar(index) {
-      const nuevoValor = prompt("Edita la PBS-IDS:", data[index]);
-      if (nuevoValor === null || nuevoValor.trim() === "") return;
 
-      data[index] = nuevoValor.trim();
-      guardarEnLocalStorage();
-      buscar();
-    }
+</div>
 
-    // Función para eliminar una PBS-IDS
-    function eliminar(index) {
-      if (confirm("¿Estás seguro de que deseas eliminar esta PBS-IDS?")) {
-        data.splice(index, 1);
-        guardarEnLocalStorage();
-        buscar();
-      }
-    }
 
-    // Mostrar resultados iniciales
-    buscar();
-  </script>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+
+<script>
+
+const SUPABASE_URL = "https://jybzqgxnrdcmlvbwyvqo.supabase.co/rest/v1/";
+const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imp5YnpxZ3hucmRjbWx2Ynd5dnFvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODU3MDk5ODgsImV4cCI6MjEwMTI4NTk4OH0.J0VpY8hDUpbtydrDiMRD9tecJHNsH84upU0Pk8LaCyw";
+
+
+const supabase = window.supabase.createClient(
+ SUPABASE_URL,
+ SUPABASE_KEY
+);
+
+
+
+let data = [];
+let ids = [];
+
+
+
+async function cargarDatos(){
+
+ const {data:rows,error}=await supabase
+ .from("reports")
+ .select("*")
+ .order("id",{ascending:true});
+
+
+ if(error){
+   console.log(error);
+   return;
+ }
+
+
+ data = rows.map(x=>x.content);
+ ids = rows.map(x=>x.id);
+
+
+ buscar();
+
+}
+
+
+// Buscar PBS-IDS
+function buscar(){
+
+ const input = document
+ .getElementById("searchInput")
+ .value
+ .toLowerCase();
+
+
+ const results = document.getElementById("results");
+
+
+ const filtered = data
+ .map((item,index)=>({item,index}))
+ .filter(x =>
+   x.item.toLowerCase().includes(input)
+ );
+
+
+ if(filtered.length===0){
+
+  results.innerHTML =
+  "<p>No se encontraron resultados.</p>";
+
+  return;
+ }
+
+
+
+ results.innerHTML =
+ "<ul>" +
+
+ filtered.map(x=>`
+
+ <li>
+
+ ${x.item}
+
+ <div>
+
+ <button class="edit"
+ onclick="editar(${x.index})">
+ Editar
+ </button>
+
+
+ <button class="delete"
+ onclick="eliminar(${x.index})">
+ Eliminar
+ </button>
+
+ </div>
+
+
+ </li>
+
+
+ `).join("")
+
+ +"</ul>";
+
+}
+
+
+
+// Registrar nueva PBS-ID
+async function registrar(){
+
+ const input =
+ document.getElementById("addInput")
+ .value
+ .trim();
+
+
+ const message =
+ document.getElementById("message");
+
+
+
+ if(input===""){
+
+  message.innerHTML =
+  "Escribe algo antes de registrar.";
+
+  message.style.color="red";
+
+  return;
+
+ }
+
+
+
+ if(data.includes(input)){
+
+  message.innerHTML =
+  "Esta PBS-ID ya existe.";
+
+  message.style.color="orange";
+
+  return;
+
+ }
+
+
+
+ const {error}=await supabase
+ .from("reports")
+ .insert({
+
+   content:input
+
+ });
+
+
+
+ if(error){
+
+  console.log(error);
+
+  message.innerHTML =
+  "Error al guardar.";
+
+  message.style.color="red";
+
+  return;
+
+ }
+
+
+
+ message.innerHTML =
+ "PBS-ID registrada correctamente.";
+
+ message.style.color="green";
+
+
+ document.getElementById("addInput").value="";
+
+
+ await cargarDatos();
+
+}
+
+
+
+
+// Editar PBS-ID
+async function editar(index){
+
+
+ const nuevo =
+ prompt(
+ "Editar PBS-ID:",
+ data[index]
+ );
+
+
+ if(!nuevo || nuevo.trim()==="")
+ return;
+
+
+
+ const {error}=await supabase
+ .from("reports")
+ .update({
+
+  content:nuevo.trim()
+
+ })
+ .eq(
+ "id",
+ ids[index]
+ );
+
+
+ if(error){
+
+ console.log(error);
+
+ return;
+
+ }
+
+
+
+ await cargarDatos();
+
+
+}
+
+
+
+
+// Eliminar PBS-ID
+async function eliminar(index){
+
+
+ if(!confirm(
+ "¿Eliminar esta PBS-ID?"
+ ))
+ return;
+
+
+
+ const {error}=await supabase
+ .from("reports")
+ .delete()
+ .eq(
+ "id",
+ ids[index]
+ );
+
+
+
+ if(error){
+
+ console.log(error);
+
+ return;
+
+ }
+
+
+
+ await cargarDatos();
+
+
+}
+
+
+
+
+
+// Modo oscuro
+
+function toggleMode(){
+
+ document.body
+ .classList
+ .toggle("dark-mode");
+
+
+ document.querySelector(".container")
+ .classList
+ .toggle("dark-mode");
+
+
+}
+
+
+
+ // iniciar
+
+cargarDatos();
+
+
+</script>
+
+
 </body>
 </html>
-
-
